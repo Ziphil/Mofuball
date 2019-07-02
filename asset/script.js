@@ -69,14 +69,17 @@ function createBalls() {
   }
   let baseHue = Math.random() * 360;
   for (let i = 0 ; i < BALL_COUNT ; i ++) {
-    let position = objectMap({x: 0, y: 0, z: 0}, (value) => Math.random() * 2 - 1);
-    let velocity = objectMap({vx: 0, vy: 0, vz: 0}, (value) => Math.random() * 0.02 - 0.01);
-    let rotate = objectMap({vx: 0, vy: 0, vz: 0}, (value) => Math.random() * 0.04 - 0.02);
+    let translatePos = objectMap({x: 0, y: 0, z: 0}, (value) => Math.random() * 2 - 1);
+    let translateVel = objectMap({vx: 0, vy: 0, vz: 0}, (value) => Math.random() * 0.02 - 0.01);
+    let rotatePos = objectMap({x: 0, y: 0, z: 0}, (value) => Math.random() * Zdog.TAU);
+    let rotateVel = objectMap({vx: 0, vy: 0, vz: 0}, (value) => Math.random() * 0.04 - 0.02);
+    let translate = Object.assign(translatePos, translateVel);
+    let rotate = Object.assign(rotatePos, rotateVel);
     let hue = Math.random() * 60 + baseHue;
     if (Math.random() < 0.05) {
       hue += 180;
     }
-    let ball = go(Object.assign(position, velocity), rotate, hue % 360);
+    let ball = go(translate, rotate, hue % 360);
     BALLS.push(ball);
   }
 }
