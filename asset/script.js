@@ -51,16 +51,18 @@ function createBox() {
 }
 
 function createBalls() {
-  let go = (data, hue) => {
-    let scaledData = objectMap(data, (value) => value * BOX_SIZE / 2);
-    let shape = new Zdog.Shape({
+  let go = (translate, hue) => {
+    let scaledTranslate = objectMap(translate, (value) => value * BOX_SIZE / 2);
+    let ball = new Zdog.Shape({
       addTo: BALL_ROOT,
       stroke: BALL_SIZE,
       path: [{x: 0, y: 0, z: 0}],
-      translate: scaledData,
+      translate: scaledTranslate,
       color: "hsl(" + Math.round(hue) + ", 60%, 50%)"
     });
-    let ball = Object.assign({shape: shape}, scaledData);
+    ball.translate.vx = scaledTranslate.vx;
+    ball.translate.vy = scaledTranslate.vy;
+    ball.translate.vz = scaledTranslate.vz;
     return ball;
   }
   for (let i = 0 ; i < BALL_COUNT ; i ++) {
@@ -100,38 +102,36 @@ function updateBox() {
 
 function updateBalls() {
   for (let ball of BALLS) {
-    ball.x += ball.vx;
-    ball.y += ball.vy;
-    ball.z += ball.vz;
-    let limit = BOX_SIZE / 2 - BALL_SIZE / 2
-    if (ball.x >= limit) {
-      ball.x = limit;
-      ball.vx = -ball.vx;
+    let limit = BOX_SIZE / 2 - BALL_SIZE / 2;
+    let translate = ball.translate;
+    translate.x += translate.vx;
+    translate.y += translate.vy;
+    translate.z += translate.vz;
+    if (translate.x >= limit) {
+      translate.x = limit;
+      translate.vx = -translate.vx;
     }
-    if (ball.x <= -limit) {
-      ball.x = -limit;
-      ball.vx = -ball.vx;
+    if (translate.x <= -limit) {
+      translate.x = -limit;
+      translate.vx = -translate.vx;
     }
-    if (ball.y >= limit) {
-      ball.y = limit;
-      ball.vy = -ball.vy;
+    if (translate.y >= limit) {
+      translate.y = limit;
+      translate.vy = -translate.vy;
     }
-    if (ball.y <= -limit) {
-      ball.y = -limit;
-      ball.vy = -ball.vy;
+    if (translate.y <= -limit) {
+      translate.y = -limit;
+      translate.vy = -translate.vy;
     }
-    if (ball.z >= limit) {
-      ball.z = limit;
-      ball.vz = -ball.vz;
+    if (translate.z >= limit) {
+      translate.z = limit;
+      translate.vz = -translate.vz;
     }
-    if (ball.z <= -limit) {
-      ball.z = -limit;
-      ball.vz = -ball.vz;
+    if (translate.z <= -limit) {
+      translate.z = -limit;
+      translate.vz = -translate.vz;
     }
-    ball.shape.translate.x = ball.x;
-    ball.shape.translate.y = ball.y;
-    ball.shape.translate.z = ball.z;
-    ball.shape.updateGraph();
+    ball.updateGraph();
   }
 }
 
