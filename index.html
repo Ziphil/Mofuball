@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Mofuball</title>
+    <link rel="stylesheet" type="text/css" href="asset/style.css">
+    <script src="asset/zdog.js"></script>
+    <script src="asset/zfont.js"></script>
+  </head>
+  <body>
+    <svg class="zdog-svg"  viewBox="-500 -500 1000 1000">
+      <defs>
+        <filter id="filter">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 20 -15" result="cm"/>
+          <feComposite in="SourceGraphic" in2="cm" operator="atop"/>
+        </filter>   		
+      </defs>
+      <g class="box"/>
+      <g class="ball" filter="url(#filter)"/>
+    </svg>
+    <script src="asset/script.js"></script>
+  </body>
+</html>
