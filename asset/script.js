@@ -103,28 +103,29 @@ function updateBalls() {
     ball.x += ball.vx;
     ball.y += ball.vy;
     ball.z += ball.vz;
-    if (ball.x >= BOX_SIZE / 2) {
-      ball.x = BOX_SIZE / 2;
+    let limit = BOX_SIZE / 2 - BALL_SIZE / 2
+    if (ball.x >= limit) {
+      ball.x = limit;
       ball.vx = -ball.vx;
     }
-    if (ball.x <= -BOX_SIZE / 2) {
-      ball.x = -BOX_SIZE / 2;
+    if (ball.x <= -limit) {
+      ball.x = -limit;
       ball.vx = -ball.vx;
     }
-    if (ball.y >= BOX_SIZE / 2) {
-      ball.y = BOX_SIZE / 2;
+    if (ball.y >= limit) {
+      ball.y = limit;
       ball.vy = -ball.vy;
     }
-    if (ball.y <= -BOX_SIZE / 2) {
-      ball.y = -BOX_SIZE / 2;
+    if (ball.y <= -limit) {
+      ball.y = -limit;
       ball.vy = -ball.vy;
     }
-    if (ball.z >= BOX_SIZE / 2) {
-      ball.z = BOX_SIZE / 2;
+    if (ball.z >= limit) {
+      ball.z = limit;
       ball.vz = -ball.vz;
     }
-    if (ball.z <= -BOX_SIZE / 2) {
-      ball.z = -BOX_SIZE / 2;
+    if (ball.z <= -limit) {
+      ball.z = -limit;
       ball.vz = -ball.vz;
     }
     ball.shape.translate.x = ball.x;
